@@ -1,22 +1,18 @@
 import mongoose, { ObjectId } from 'mongoose';
 const Schema = mongoose.Schema;
 
-interface Post {
-  title: string;
+interface Comment {
   text: string;
   author: ObjectId;
   created_at: Date;
   updated_at: Date;
-  private: boolean;
 }
 
-const PostSchema = new Schema<Post>({
-  title: { type: String, required: true },
+const CommentSchema = new Schema<Comment>({
   text: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   created_at: { type: Date, required: true },
   updated_at: { type: Date },
-  private: { type: Boolean, required: true },
 });
 
-export default mongoose.model<Post>('Post', PostSchema);
+export default mongoose.model<Comment>('Comment', CommentSchema);
