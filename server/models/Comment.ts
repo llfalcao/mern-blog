@@ -5,7 +5,7 @@ interface Comment {
   text: string;
   author: ObjectId;
   created_at: Date;
-  updated_at: Date;
+  updated_at?: Date;
 }
 
 const CommentSchema = new Schema<Comment>({

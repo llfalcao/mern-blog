@@ -6,7 +6,7 @@ interface Post {
   text: string;
   author: ObjectId;
   created_at: Date;
-  updated_at: Date;
+  updated_at?: Date;
   private: boolean;
 }
 
