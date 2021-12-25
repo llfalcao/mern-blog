@@ -5,6 +5,7 @@ import { router as routeHandler } from './routes';
 import mongoose from 'mongoose';
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 const mongoDB = process.env.MONGODB || '';
@@ -15,7 +16,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 app.get('/api', (req, res) => {
   res.json({
     message:
-      'Welcome to the blog API! Refer to https://github.com/llfalcao/blog for the documentation.',
+      'Welcome to the blog API! Refer to https://github.com/llfalcao/mern-blog for the documentation.',
   });
 });
 

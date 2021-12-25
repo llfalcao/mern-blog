@@ -1,8 +1,8 @@
 import { Router } from 'express';
+import userController from '../controllers/user.controller';
 const router = Router();
 
-router.get('/', (req, res) =>
-  res.json({ message: 'Users API - To be implemented...' }),
-);
+router.get('/', userController.userList);
+router.post('/', userController.userCreate);
 
 export default router;
