@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response, NextFunction } from 'express';
-import { body, validationResult } from 'express-validator';
 import { HydratedDocument } from 'mongoose';
 import UserModel, { User } from '../models/User';
+import { userValidationRules } from '../utils/validator';
+import { validationResult } from 'express-validator';
 
 // Get all users
 async function userList(req: Request, res: Response, next: NextFunction) {
@@ -26,40 +27,19 @@ async function hashPassword(password: string) {
 }
 
 // Create new user
-const userCreate = [
-  body('username', 'Username required')
-    .trim()
-    .notEmpty()
-    .isLength({ max: 50 })
-    .withMessage('The username is too long.')
-    .custom(async (username) => {
-      if (!username.match(/^[A-Za-z0-9]+$/)) {
-        throw new Error(
-          'The username must not contain spaces or special characters (e.g. !@#$)',
-        );
-      }
-
-      const isMatch: User | null = await UserModel.findOne({ username }).exec();
-      if (isMatch) throw new Error('Username not available.');
-    }),
-  body('password', 'Password required.')
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage('The password must contain at least 8 characters.'),
+const userCreate: any = [
+  userValidationRules,
   async function (req: Request, res: Response, next: NextFunction) {
+    const errors = validationResult(req).array();
+    if (errors) {
+      return res.status(422).json({ username: req.body.username, errors });
+    }
+
     try {
-      const errors = validationResult(req);
       const user: HydratedDocument<User> = new UserModel({
         username: req.body.username,
         password: await hashPassword(req.body.password),
       });
-
-      if (!errors.isEmpty()) {
-        return res.json({
-          username: req.body.username,
-          errors: errors.array(),
-        });
-      }
 
       await user.save();
       res.sendStatus(200);
