@@ -1,7 +1,7 @@
 import mongoose, { ObjectId } from 'mongoose';
 const Schema = mongoose.Schema;
 
-interface Post {
+export interface Post {
   title: string;
   text: string;
   author: ObjectId;
@@ -19,4 +19,5 @@ const PostSchema = new Schema<Post>({
   private: { type: Boolean, required: true },
 });
 
-export default mongoose.model<Post>('Post', PostSchema);
+const PostModel = mongoose.model<Post>('Post', PostSchema);
+export default PostModel;

@@ -1,7 +1,7 @@
 import mongoose, { ObjectId } from 'mongoose';
 const Schema = mongoose.Schema;
 
-interface Comment {
+export interface Comment {
   text: string;
   author: ObjectId;
   created_at: Date;
@@ -15,4 +15,5 @@ const CommentSchema = new Schema<Comment>({
   updated_at: { type: Date },
 });
 
-export default mongoose.model<Comment>('Comment', CommentSchema);
+const commentModel = mongoose.model<Comment>('Comment', CommentSchema);
+export default commentModel;
