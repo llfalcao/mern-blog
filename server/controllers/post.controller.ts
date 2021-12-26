@@ -16,6 +16,19 @@ async function postList(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+// Get a single post
+async function postDetail(req: Request, res: Response, next: NextFunction) {
+  try {
+    const post = await PostModel.findById(req.params.post)
+      .populate('author', 'username')
+      .exec();
+    if (!post) res.sendStatus(404);
+    res.json(post);
+  } catch (err) {
+    return next(err);
+  }
+}
+
 // Create new post
 const postCreate: any = [
   postValidation,
@@ -23,6 +36,7 @@ const postCreate: any = [
   async function (req: any, res: Response, next: NextFunction) {
     try {
       const errors = validationResult(req);
+      console.log(req.body.private);
 
       const post: HydratedDocument<Post> = new PostModel({
         title: req.body.title,
@@ -44,5 +58,5 @@ const postCreate: any = [
   },
 ];
 
-const postController = { postList, postCreate };
+const postController = { postList, postDetail, postCreate };
 export default postController;
