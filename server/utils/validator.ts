@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import UserModel, { User } from '../models/User';
 
-const userValidationRules = [
+const userValidation = [
   body('username', 'Username required')
     .trim()
     .notEmpty()
@@ -26,4 +26,15 @@ const userValidationRules = [
     .withMessage('The password must contain at least 8 characters.'),
 ];
 
-export { userValidationRules };
+const postValidation = [
+  body('title', 'Title required.').trim().notEmpty().isLength({ max: 150 }),
+  body('text', 'Post text required.').trim().notEmpty(),
+  body('private').custom((value) => {
+    if (value !== 'private' && value !== 'public') {
+      throw new Error('Post visibility required.');
+    }
+    return true;
+  }),
+];
+
+export { userValidation, postValidation };
