@@ -1,4 +1,6 @@
 import mongoose, { ObjectId } from 'mongoose';
+import CommentModel from './Comment';
+
 const Schema = mongoose.Schema;
 
 export interface Post {
@@ -15,7 +17,7 @@ const PostSchema = new Schema<Post>({
   title: { type: String, required: true },
   text: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  comments: [{ type: Schema.Types.ObjectId, ref: CommentModel }],
   created_at: { type: Date, required: true },
   updated_at: { type: Date },
   private: { type: Boolean, required: true },

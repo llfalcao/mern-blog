@@ -4,9 +4,9 @@ import commentController from '../controllers/comment.controller';
 
 const router = Router();
 
-router.post('/', postController.postCreate);
-router.get('/:post', postController.postDetail);
+router.post('/', postController.createPost);
+router.get('/:post', postController.getPost);
 router.get('/:post/comments', commentController.getComments);
-router.get('/', postController.postList);
+router.get('/', postController.getPosts);
 
 export default router;

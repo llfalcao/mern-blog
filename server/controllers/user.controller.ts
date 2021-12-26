@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { HydratedDocument } from 'mongoose';
-import UserModel, { User } from '../models/User';
 import { userValidation } from '../utils/validator';
 import { validationResult } from 'express-validator';
+import UserModel, { User } from '../models/User';
 
 // Get all users
-async function userList(req: Request, res: Response, next: NextFunction) {
+async function getUsers(req: Request, res: Response, next: NextFunction) {
   try {
     const users = await UserModel.find({}, { username: 1 }).exec();
     res.status(200);
@@ -16,7 +16,7 @@ async function userList(req: Request, res: Response, next: NextFunction) {
 }
 
 // Create new user
-const userCreate: any = [
+const createUser: any = [
   userValidation,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req).array();
@@ -38,5 +38,5 @@ const userCreate: any = [
   },
 ];
 
-const userController = { userList, userCreate };
+const userController = { getUsers, createUser };
 export default userController;
