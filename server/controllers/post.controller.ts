@@ -9,7 +9,9 @@ import PostModel, { Post } from '../models/Post';
 // Get all posts
 async function postList(req: Request, res: Response, next: NextFunction) {
   try {
-    const posts: object[] = await PostModel.find().exec();
+    const posts = await PostModel.find({}, { comments: 0 })
+      .populate('author', 'username')
+      .exec();
     res.json(posts);
   } catch (err) {
     return next(err);
@@ -19,7 +21,7 @@ async function postList(req: Request, res: Response, next: NextFunction) {
 // Get a single post
 async function postDetail(req: Request, res: Response, next: NextFunction) {
   try {
-    const post = await PostModel.findById(req.params.post)
+    const post = await PostModel.findById(req.params.post, { comments: 0 })
       .populate('author', 'username')
       .exec();
     if (!post) res.sendStatus(404);
