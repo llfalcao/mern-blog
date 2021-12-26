@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { HydratedDocument } from 'mongoose';
 import UserModel, { User } from '../models/User';
