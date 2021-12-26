@@ -1,11 +1,27 @@
 import { Request, Response, NextFunction } from 'express';
+import CommentModel from '../models/Comment';
 import PostModel from '../models/Post';
+
+// Get a single comment from a post
+async function getComment(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { comment: commentId } = req.params;
+    const comment = await CommentModel.findById(commentId)
+      .populate('author', 'username')
+      .exec();
+
+    if (!comment) return next();
+    res.json(comment);
+  } catch (err) {
+    return next(err);
+  }
+}
 
 // Get all comments from a post
 async function getComments(req: Request, res: Response, next: NextFunction) {
   try {
-    const { post } = req.params;
-    const data = await PostModel.findById(post, { comments: 1 })
+    const { post: postId } = req.params;
+    const data = await PostModel.findById(postId, { comments: 1 })
       .populate({
         path: 'comments',
         populate: { path: 'author', select: 'username' },
@@ -21,5 +37,5 @@ async function getComments(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-const commentController = { getComments };
+const commentController = { getComment, getComments };
 export default commentController;
