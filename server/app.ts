@@ -13,8 +13,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use(passport.initialize());
 app.use('/', routes);
 
