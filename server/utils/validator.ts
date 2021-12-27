@@ -29,7 +29,7 @@ const userValidation = [
 const postValidation = [
   body('title', 'Title required.').trim().notEmpty().isLength({ max: 150 }),
   body('text', 'Post text required.').trim().notEmpty(),
-  body('private').custom((value) => {
+  body('visibility').custom((value) => {
     if (value !== 'private' && value !== 'public') {
       throw new Error('Post visibility required.');
     }

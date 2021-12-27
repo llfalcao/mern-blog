@@ -1,7 +1,7 @@
-function Nav({ children, drawer }) {
+function Nav({ children }) {
   return (
-    <nav className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-      {drawer ? <div className="text-sm lg:flex-grow">{children}</div> : null}
+    <nav className="hidden w-full block lg:flex lg:items-center lg:w-auto nav">
+      <div className="text-sm ">{children}</div>
     </nav>
   );
 }

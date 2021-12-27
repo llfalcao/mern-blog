@@ -4,7 +4,7 @@ function NavItem({ children, href, target, rel }) {
       href={href}
       target={target}
       rel={rel}
-      className="block mt-4 font-semibold lg:inline-block lg:mt-0 lg:text-lg text-gray-800 mr-4"
+      className="block first:mt-4 lg:first:mt-0 p-2 text-lg font-medium lg:inline-block lg:mt-0 lg:text-lg text-gray-800 lg:mr-4 lg:hover:text-slate-600"
     >
       {children}
     </a>

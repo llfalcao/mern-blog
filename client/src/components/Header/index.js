@@ -1,16 +1,14 @@
-import { useState } from 'react';
 import Nav from '../Nav';
 import NavItem from '../NavItem';
 
 function Header() {
-  const [drawer, setDrawer] = useState(false);
-
   function toggleDrawer() {
-    setDrawer(!drawer);
+    const nav = document.querySelector('.nav');
+    nav.classList.toggle('hidden');
   }
 
   return (
-    <header className="flex items-center justify-between flex-wrap p-6">
+    <header className="p-6 flex items-center justify-between flex-wrap header">
       <div className="flex items-center flex-shrink-0 mr-6">
         <div>
           <img
@@ -20,12 +18,10 @@ function Header() {
           />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-xl tracking-tight">
+          <span className="font-medium text-xl tracking-tight">
             The MERN Blog
           </span>
-          <span className="font-semibold text-sm tracking-tight">
-            by llfalcao
-          </span>
+          <span className="font-medium text-sm tracking-wide">by llfalcao</span>
         </div>
       </div>
       <div className="block lg:hidden">
@@ -44,7 +40,7 @@ function Header() {
         </button>
       </div>
 
-      <Nav drawer={drawer}>
+      <Nav>
         <NavItem
           href="https://github.com/llfalcao/mern-blog"
           target="_blank"
