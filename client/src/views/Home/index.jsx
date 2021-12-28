@@ -11,9 +11,7 @@ function Home() {
         // heroku soon(tm)
         const url = 'http://192.168.100.3:5000/api/v1/posts';
         const response = await fetch(url);
-        console.log(response);
         const data = await response.json();
-
         setPosts(data);
       } catch (error) {
         setPosts(error);

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Nav from '../Nav';
 import NavItem from '../NavItem';
 
@@ -9,7 +10,7 @@ function Header() {
 
   return (
     <header className="p-6 flex items-center justify-between flex-wrap header">
-      <div className="flex items-center flex-shrink-0 mr-6">
+      <Link to="/" className="flex items-center flex-shrink-0 mr-6">
         <div>
           <img
             className="fill-current h-9 w-9 mr-2 rounded-full"
@@ -23,7 +24,7 @@ function Header() {
           </span>
           <span className="font-medium text-sm tracking-wide">by llfalcao</span>
         </div>
-      </div>
+      </Link>
       <div className="block lg:hidden">
         <button
           className="flex items-center px-4 py-3 border rounded text-gray-800 border-gray-800 hover:border-gray-600"
