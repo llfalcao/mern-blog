@@ -5,7 +5,12 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #eee;
+  min-height: 100vh;
+  background: #1f1f1f;
+}
+
+main {
+  min-height: 100%;
 }
 
 code {
