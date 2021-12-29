@@ -6,6 +6,8 @@ function Header() {
   function toggleDrawer() {
     const nav = document.querySelector('.nav');
     nav.classList.toggle('hidden');
+    const header = document.querySelector('.header');
+    header.classList.toggle('bg-zinc-900');
   }
 
   return (
@@ -19,19 +21,21 @@ function Header() {
           />
         </div>
         <div className="flex flex-col">
-          <span className="font-medium text-xl tracking-tight">
+          <span className="font-medium text-xl text-gray-200 tracking-tight">
             The MERN Blog
           </span>
-          <span className="font-medium text-sm tracking-wide">by llfalcao</span>
+          <span className="font-medium text-sm text-gray-200 tracking-wide">
+            by llfalcao
+          </span>
         </div>
       </Link>
       <div className="block lg:hidden">
         <button
-          className="flex items-center px-4 py-3 border rounded text-gray-800 border-gray-800 hover:border-gray-600"
+          className="px-4 py-3 border border-zinc-600 rounded-lg bg-black hover:border-gray-300"
           onClick={toggleDrawer}
         >
           <svg
-            className="fill-current h-3 w-3"
+            className="fill-gray-200 h-3 w-3"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
