@@ -50,6 +50,7 @@ function Header() {
           href="https://github.com/llfalcao/mern-blog"
           target="_blank"
           rel="noreferrer"
+          externalLink={true}
         >
           About
         </NavItem>

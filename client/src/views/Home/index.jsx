@@ -21,7 +21,6 @@ function Home() {
 
   return (
     <>
-      <Header />
       <main className="m-4 flex flex-col">
         {posts.length > 0
           ? posts.map((post) => (

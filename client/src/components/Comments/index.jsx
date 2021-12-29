@@ -17,13 +17,14 @@ function Comments({ post }) {
   }, [post]);
 
   return (
-    <div>
+    <div className="m-3 p-5 rounded-md text-gray-200 bg-zinc-800">
+      <h2 className="mb-5 text-lg font-semibold">Comments</h2>
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment._id}>
-            <span>{comment.author.username}</span>
+            <span className="font-semibold">{comment.author.username}</span>
             <p>{comment.text}</p>
-            <span>{comment.created_at}</span>
+            <span className="text-xs text-gray-400">{comment.created_at}</span>
           </div>
         ))
       ) : (

@@ -21,14 +21,12 @@ function Post() {
 
   return (
     <>
-      <Header />
-
       {post ? (
         <>
-          <main>
-            <h1>{post.title}</h1>
-            <span>{post.created_at}</span>
-            <p>{post.text}</p>
+          <main className="p-5 rounded-md text-gray-200">
+            <h1 className="text-xl font-semibold">{post.title}</h1>
+            <span className="text-gray-400">{post.created_at}</span>
+            <p className="mt-5">{post.text}</p>
           </main>
           <Comments post={post._id} />
         </>
