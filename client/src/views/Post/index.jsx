@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Comments from '../../components/Comments';
-import Header from '../../components/Header';
 
 function Post() {
   const [post, setPost] = useState(null);

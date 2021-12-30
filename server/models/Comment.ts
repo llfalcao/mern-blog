@@ -2,7 +2,7 @@ import mongoose, { ObjectId } from 'mongoose';
 const Schema = mongoose.Schema;
 
 export interface Comment {
-  author: ObjectId;
+  author: string;
   text: string;
   post: ObjectId;
   created_at: Date;
@@ -10,7 +10,7 @@ export interface Comment {
 }
 
 const CommentSchema = new Schema<Comment>({
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String, required: true },
   text: { type: String, required: true },
   post: { type: Schema.Types.ObjectId, ref: 'Post' },
   created_at: { type: Date, required: true },
