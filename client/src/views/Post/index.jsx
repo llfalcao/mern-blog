@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import Comments from '../../components/Comments';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import { API_URL } from '../../api';
 
 function Post() {
   const [post, setPost] = useState(null);
@@ -8,7 +10,7 @@ function Post() {
     (async () => {
       try {
         const { pathname } = window.location;
-        const url = `http://192.168.100.3:5000/api/v1${pathname}`;
+        const url = `${API_URL}${pathname}`;
         const response = await fetch(url);
         const data = await response.json();
         setPost(data);
@@ -29,7 +31,9 @@ function Post() {
           </main>
           <Comments post={post._id} />
         </>
-      ) : null}
+      ) : (
+        <LoadingIndicator />
+      )}
     </>
   );
 }

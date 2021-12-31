@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from '../../api';
 
 function Comments({ post }) {
   const [comments, setComments] = useState([]);
@@ -7,7 +8,7 @@ function Comments({ post }) {
   useEffect(() => {
     (async () => {
       try {
-        const url = `http://192.168.100.3:5000/api/v1/posts/${post}/comments`;
+        const url = `${API_URL}/posts/${post}/comments`;
         const response = await fetch(url);
         const data = await response.json();
         setComments(data);
@@ -27,7 +28,7 @@ function Comments({ post }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const url = `http://192.168.100.3:5000/api/v1/comments`;
+    const url = `${API_URL}/comments`;
     fetch(url, {
       method: 'POST',
       headers: {
