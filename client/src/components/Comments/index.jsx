@@ -40,7 +40,7 @@ function Comments({ post }) {
   }
 
   return (
-    <div className="m-3 p-5 rounded-md text-gray-200 bg-zinc-800">
+    <div className="m-3 p-5 rounded-xl text-gray-200 bg-zinc-900 lg:border lg:border-gray-700 lg:mx-auto lg:w-8/12">
       <h2 className="mb-5 text-lg font-semibold">Comments</h2>
       <form method="POST" onSubmit={handleSubmit}>
         <input

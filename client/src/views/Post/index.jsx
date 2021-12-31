@@ -24,7 +24,7 @@ function Post() {
     <>
       {post ? (
         <>
-          <main className="p-5 rounded-md text-gray-200">
+          <main className="p-5 lg:p-10 rounded-xl text-gray-200 lg:bg-zinc-900 lg:border lg:border-gray-700 lg:w-8/12 lg:mx-auto">
             <h1 className="text-xl font-semibold">{post.title}</h1>
             <span className="text-gray-400">{post.created_at}</span>
             <p className="mt-5">{post.text}</p>

@@ -3,10 +3,25 @@
 @tailwind utilities;
 
 body {
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background: #1f1f1f;
+}
+
+body::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  body::before {
+    background: url('../public/images/bg.jpg') center top / cover no-repeat;
+    filter: blur(4px);
+  }
 }
 
 main {
@@ -19,11 +34,7 @@ code {
 }
 
 .header {
-  font-family: Poppins, sans-serif !important;
-}
-
-.post {
-  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.19);
+  background: linear-gradient(-45deg, #000, hsla(0, 0%, 5%, 0.7) 40%);
 }
 
 .loading-icon {
