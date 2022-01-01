@@ -102,7 +102,13 @@ function Comments({ post }) {
               className="py-1 border-b last:border-none border-gray-200"
             >
               <span className="text-sm font-semibold">{comment.author}</span>
-              <p className="text-sm">{comment.text}</p>
+
+              {comment.text.split('\n').map((line, i) => (
+                <p key={`${comment._id}${i}`} className="text-sm">
+                  {line}
+                </p>
+              ))}
+
               <span className="text-xs text-gray-400">
                 {DateTime.fromISO(comment.created_at).toLocaleString(
                   DateTime.DATETIME_FULL_WITH_SECONDS,

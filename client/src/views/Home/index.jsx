@@ -6,15 +6,18 @@ import { DateTime } from 'luxon';
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async function getPosts() {
       try {
         // heroku soon(tm)
+        setLoading(true);
         const url = `${API_URL}/posts`;
         const response = await fetch(url);
         const data = await response.json();
         setPosts(data);
+        setLoading(false);
       } catch (error) {
         setPosts(error);
       }
@@ -66,15 +69,15 @@ function Home() {
               </div>
             </div>
           ))
-        ) : posts.length === 0 ? (
+        ) : loading ? (
+          <LoadingIndicator />
+        ) : (
           <h1
             className="text-gray-200 text-3xl text-center"
             style={{ textShadow: '0 2px #000' }}
           >
             There are no posts.
           </h1>
-        ) : (
-          <LoadingIndicator />
         )}
       </main>
     </>

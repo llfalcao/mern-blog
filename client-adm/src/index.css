@@ -1,9 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+main {
+  min-height: 100%;
+  max-width: 1360px;
+}
+
+.header {
+  background: linear-gradient(-45deg, #000, hsla(0, 0%, 5%, 0.7) 40%);
+}
+
+.loading-icon {
+  animation: spin 0.3s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
