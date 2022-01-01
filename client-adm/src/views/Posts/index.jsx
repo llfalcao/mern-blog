@@ -29,9 +29,9 @@ function Posts() {
         posts.map((post) => (
           <div
             key={post._id}
-            className="p-4 mx-auto flex flex-col justify-between text-gray-800 rounded-md bg-zinc-800 shadow-md ease-out duration-150 lg:w-8/12 lg:border lg:border-gray-700 hover:border-gray-500"
+            className="p-4 mx-auto flex flex-col justify-between text-gray-800 rounded-md bg-zinc-800 shadow-md ease-out duration-150 w-full lg:w-8/12 lg:border lg:border-gray-700 hover:border-gray-500"
           >
-            <Link to="/posts">
+            <Link to={`${post}/edit`}>
               <h2 className="text-lg font-medium text-sky-200 tracking-wide hover:underline">
                 {post.title}
               </h2>

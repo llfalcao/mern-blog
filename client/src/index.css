@@ -20,14 +20,16 @@ body::before {
 
 @media (min-width: 1024px) {
   body::before {
-    background: url('../public/images/bg.jpg') center top / cover no-repeat;
+    background: url('../public/images/bg.jpg') center top / cover no-repeat
+      fixed;
     filter: blur(4px);
   }
 }
 
 @media (min-height: 1500px) {
   body::before {
-    background: url('../public/images/bg-2.jpg') center bottom / cover no-repeat;
+    background: url('../public/images/bg-2.jpg') center bottom / cover no-repeat
+      fixed;
     filter: blur(4px);
   }
 }
