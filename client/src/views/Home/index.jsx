@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import { API_URL } from '../../api';
+import { DateTime } from 'luxon';
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -42,10 +43,16 @@ function Home() {
 
               <div className="flex flex-row justify-between items-center">
                 <span className="text-sm text-gray-400">
-                  {post.created_at}
+                  {DateTime.fromISO(post.created_at).toLocaleString(
+                    DateTime.DATETIME_MED,
+                  )}
                   {post.updated_at ? (
                     <span className="text-sm text-gray-400">
-                      (updated {post.updated_at})
+                      (updated{' '}
+                      {DateTime.fromISO(post.updated_at).toLocaleString(
+                        DateTime.DATETIME_MED,
+                      )}
+                      )
                     </span>
                   ) : null}
                 </span>
@@ -59,6 +66,13 @@ function Home() {
               </div>
             </div>
           ))
+        ) : posts.length === 0 ? (
+          <h1
+            className="text-gray-200 text-3xl text-center"
+            style={{ textShadow: '0 2px #000' }}
+          >
+            There are no posts.
+          </h1>
         ) : (
           <LoadingIndicator />
         )}

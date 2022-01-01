@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../api';
 import { v4 as uuidv4 } from 'uuid';
+import { DateTime } from 'luxon';
 
 function Comments({ post }) {
   const [comments, setComments] = useState([]);
@@ -23,16 +24,13 @@ function Comments({ post }) {
   }, [post, reload]);
 
   function handleInput(e) {
-    setNewComment((prev) => {
-      const next = prev;
-      next[e.target.name] = e.target.value;
-      return next;
-    });
+    setNewComment({ ...newComment, [e.target.name]: e.target.value });
   }
 
   async function handleSubmit(e) {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
       const url = `${API_URL}/comments`;
       const response = await fetch(url, {
         method: 'POST',
@@ -60,7 +58,7 @@ function Comments({ post }) {
   }
 
   return (
-    <div className="m-3 p-5 rounded-xl text-gray-200 bg-zinc-900 lg:border lg:border-gray-700 lg:mx-auto lg:w-8/12">
+    <div className="m-3 p-5 lg:p-10 rounded-xl text-gray-200 bg-zinc-900 lg:border lg:border-gray-700 lg:mx-auto lg:w-8/12">
       <h2 className="mb-5 text-lg font-semibold">Comments</h2>
       <form method="POST" onSubmit={handleSubmit}>
         <input
@@ -97,15 +95,24 @@ function Comments({ post }) {
       </form>
 
       {comments.length > 0 ? (
-        comments.map((comment) => (
-          <div key={comment._id} className="mt-10">
-            <span className="font-semibold">{comment.author}</span>
-            <p>{comment.text}</p>
-            <span className="text-xs text-gray-400">{comment.created_at}</span>
-          </div>
-        ))
+        <ul className="mt-10">
+          {comments.map((comment) => (
+            <li
+              key={comment._id}
+              className="py-1 border-b last:border-none border-gray-200"
+            >
+              <span className="text-sm font-semibold">{comment.author}</span>
+              <p className="text-sm">{comment.text}</p>
+              <span className="text-xs text-gray-400">
+                {DateTime.fromISO(comment.created_at).toLocaleString(
+                  DateTime.DATETIME_FULL_WITH_SECONDS,
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>There are no comments yet.</p>
+        <p className="mt-10">There are no comments yet.</p>
       )}
     </div>
   );

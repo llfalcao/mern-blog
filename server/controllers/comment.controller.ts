@@ -21,7 +21,7 @@ async function getComments(req: Request, res: Response, next: NextFunction) {
   try {
     const { post: postId } = req.params;
     const data = await PostModel.findById(postId, { comments: 1 })
-      .populate('comments')
+      .populate({ path: 'comments', options: { sort: { created_at: -1 } } })
       .exec();
 
     const comments = data!.comments;
@@ -47,7 +47,7 @@ const createComment: any = [
       });
 
       if (!errors.isEmpty()) {
-        return res.status(403).json({ comment, errors: errors.array() });
+        return res.status(403).json({ errors: errors.array() });
       }
 
       const postRef = await PostModel.findById(post).exec();
