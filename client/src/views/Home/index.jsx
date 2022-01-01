@@ -22,12 +22,12 @@ function Home() {
 
   return (
     <>
-      <main className="m-4 flex flex-col gap-4 lg:flex-row lg:w-10/12 lg:mx-auto lg:justify-center">
+      <main className="m-4 flex flex-col gap-4 lg:flex-col lg:w-6/12 lg:mx-auto lg:justify-center">
         {posts.length > 0 ? (
           posts.map((post) => (
             <div
               key={post._id}
-              className="p-4 flex flex-col justify-between gap-4 text-gray-800 rounded-xl bg-zinc-800 shadow-md ease-out duration-150 lg:shadow-none lg:bg-zinc-900 lg:w-6/12 lg:aspect-square lg:p-7 lg:border lg:border-gray-700 hover:border-gray-500"
+              className="p-4 flex flex-col justify-between gap-4 text-gray-800 rounded-xl bg-zinc-800 shadow-md ease-out duration-150 lg:shadow-none lg:bg-zinc-900 lg:p-7 lg:border lg:border-gray-700 hover:border-gray-500"
             >
               <div>
                 <Link to={`/posts/${post._id}`}>

@@ -7,6 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  overflow-y: scroll;
 }
 
 body::before {
@@ -17,15 +18,23 @@ body::before {
   z-index: -1;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   body::before {
     background: url('../public/images/bg.jpg') center top / cover no-repeat;
     filter: blur(4px);
   }
 }
 
+@media (min-height: 1500px) {
+  body::before {
+    background: url('../public/images/bg-2.jpg') center bottom / cover no-repeat;
+    filter: blur(4px);
+  }
+}
+
 main {
   min-height: 100%;
+  max-width: 1360px;
 }
 
 code {

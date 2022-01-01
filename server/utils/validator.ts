@@ -1,6 +1,7 @@
 import { body } from 'express-validator';
 import UserModel, { User } from '../models/User';
 
+// USERS
 const userValidation = [
   body('username', 'Username required')
     .trim()
@@ -26,6 +27,7 @@ const userValidation = [
     .withMessage('The password must contain at least 8 characters.'),
 ];
 
+// POSTS
 const postValidation = [
   body('title', 'Title required.').trim().notEmpty().isLength({ max: 150 }),
   body('text', 'Post text required.').trim().notEmpty(),
@@ -37,4 +39,18 @@ const postValidation = [
   }),
 ];
 
-export { userValidation, postValidation };
+// COMMENTS
+const commentValidation = [
+  body('author', 'Name required')
+    .trim()
+    .notEmpty()
+    .isLength({ max: 50 })
+    .withMessage('The "Name" field must not exceed 50 characters.'),
+  body('text', 'Comment required')
+    .trim()
+    .notEmpty()
+    .isLength({ max: 2000 })
+    .withMessage('The comment must not exceed 2000 characters.'),
+];
+
+export { userValidation, postValidation, commentValidation };
