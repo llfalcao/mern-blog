@@ -2,14 +2,14 @@ import { useState } from 'react';
 import PostForm from '../../components/PostForm';
 
 function NewPost() {
-  const [post, setPost] = useState({ title: '', text: '', private: true });
+  const [post, setPost] = useState({ title: '', text: '', visibility: true });
 
   function onChange(e) {
     setPost({ ...post, [e.target.name]: e.target.value });
   }
 
   function onVisibilityChange() {
-    setPost({ ...post, private: !post.private });
+    setPost({ ...post, visibility: !post.visibility });
   }
 
   return (

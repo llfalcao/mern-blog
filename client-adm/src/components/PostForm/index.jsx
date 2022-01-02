@@ -1,14 +1,49 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../../api';
+import token from '../../auth';
 
-export default function index({ post, onChange, onVisibilityChange }) {
+export default function PostForm({ post, onChange, onVisibilityChange }) {
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState();
+
   function expandTextarea(e) {
     const textarea = e.target;
     textarea.style.height = '';
     textarea.style.height = textarea.scrollHeight + 'px';
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const newPost = {
+        ...post,
+        visibility: post.visibility ? 'private' : 'public',
+      };
+      const response = await fetch(`${API_URL}/posts`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify(newPost),
+      });
+
+      if (response.status === 200) {
+        return navigate('/posts');
+      }
+
+      const data = await response.json();
+      setErrors(data.errors);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <form className="w-full text-gray-200">
+    <form className="w-full text-gray-200" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-1">
         <label htmlFor="title" className="font-semibold">
           Title
@@ -54,7 +89,7 @@ export default function index({ post, onChange, onVisibilityChange }) {
             id="private"
             type="radio"
             name="visibility"
-            defaultChecked={post.private}
+            defaultChecked={post.visibility}
             className="mr-3 scale-150 origin-left"
           />
           <label htmlFor="private">Private</label>
@@ -65,12 +100,20 @@ export default function index({ post, onChange, onVisibilityChange }) {
             id="public"
             type="radio"
             name="visibility"
-            defaultChecked={!post.private}
+            defaultChecked={!post.visibility}
             className="mr-3 scale-150 origin-left"
           />
           <label htmlFor="public">Public</label>
         </div>
       </div>
+
+      {errors ? (
+        <ul className="mt-5 text-red-500 list-disc ml-3">
+          {errors.map((err) => (
+            <li>{err.msg}</li>
+          ))}
+        </ul>
+      ) : null}
 
       <div className="mt-5">
         <button

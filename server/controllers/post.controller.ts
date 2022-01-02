@@ -48,7 +48,7 @@ const createPost: any = [
       });
 
       if (!errors.isEmpty()) {
-        return res.json({ post, errors: errors.array() });
+        return res.status(403).json({ post, errors: errors.array() });
       }
 
       await post.save();
