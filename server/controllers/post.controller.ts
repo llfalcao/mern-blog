@@ -59,5 +59,48 @@ const createPost: any = [
   },
 ];
 
-const postController = { getPost, createPost, getPosts };
+// Update post
+const updatePost: any = [
+  postValidation,
+  passport.authenticate('jwt', { session: false }),
+  async function (req: any, res: Response, next: NextFunction) {
+    try {
+      const errors = validationResult(req);
+
+      const post = {
+        title: req.body.title,
+        text: req.body.text,
+        updated_at: new Date(),
+        private: req.body.visibility === 'private' ? true : false,
+      };
+
+      if (!errors.isEmpty()) {
+        return res.status(403).json({ post, errors: errors.array() });
+      }
+
+      await PostModel.updateOne({ _id: req.params.post }, post).exec();
+      res.sendStatus(200);
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
+
+// Delete post
+async function deletePost(req: any, res: Response, next: NextFunction) {
+  try {
+    await PostModel.deleteOne({ _id: req.params.post }).exec();
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+const postController = {
+  getPosts,
+  getPost,
+  createPost,
+  updatePost,
+  deletePost,
+};
 export default postController;
