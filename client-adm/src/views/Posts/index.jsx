@@ -14,7 +14,6 @@ function Posts() {
         setLoading(true);
         const response = await fetch(`${API_URL}/posts`);
         const data = await response.json();
-        console.log(data);
         setPosts(data);
         setLoading(false);
       } catch (err) {
