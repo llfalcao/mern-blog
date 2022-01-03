@@ -32,7 +32,13 @@ function Post() {
                 DateTime.DATETIME_MED,
               )}
             </span>
-            <p className="mt-5">{post.text}</p>
+            <div className="mt-5">
+              {post.text.split('\n').map((line, i) => (
+                <p key={`${post._id}${i}`} className="mb-2">
+                  {line}
+                </p>
+              ))}
+            </div>
           </main>
           <Comments post={post._id} />
         </>

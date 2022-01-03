@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function PostForm({
@@ -7,9 +8,13 @@ export default function PostForm({
   onSubmit,
   errors,
 }) {
+  useEffect(() => {
+    const a = document.getElementById('content');
+    a.style.height = a.scrollHeight + 20 + 'px';
+  }, []);
+
   function expandTextarea(e) {
     const textarea = e.target;
-    textarea.style.height = '';
     textarea.style.height = textarea.scrollHeight + 'px';
   }
 
@@ -42,26 +47,19 @@ export default function PostForm({
           name="text"
           className="w-full mt-1 p-2 pl-3 bg-zinc-800 rounded-md border border-zinc-500"
           value={post.text}
-          style={{
-            height: () => {
-              const textarea = document.getElementById('content');
-              textarea.style.height = textarea.scrollHeight + 'px';
-            },
-          }}
           onInput={expandTextarea}
           onChange={onChange}
         />
       </div>
 
       <p className="mt-5 mb-3 font-semibold">Visibility</p>
-      <div className="flex gap-5">
+      <div className="flex gap-5" onChange={onVisibilityChange}>
         <div>
           <input
             id="private"
             type="radio"
             name="visibility"
-            checked={post.private === true}
-            onChange={onVisibilityChange}
+            defaultChecked={post.private === true || post.private === undefined}
             className="mr-3 scale-150 origin-left"
           />
           <label htmlFor="private">Private</label>
@@ -72,8 +70,7 @@ export default function PostForm({
             id="public"
             type="radio"
             name="visibility"
-            checked={post.private === false}
-            onChange={onVisibilityChange}
+            defaultChecked={post.private === false}
             className="mr-3 scale-150 origin-left"
           />
           <label htmlFor="public">Public</label>
