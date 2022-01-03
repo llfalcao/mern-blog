@@ -15,7 +15,7 @@ export default function PostForm({
 
   function expandTextarea(e) {
     const textarea = e.target;
-    textarea.style.height = textarea.scrollHeight + 'px';
+    textarea.style.minHeight = textarea.scrollHeight + 'px';
   }
 
   return (
