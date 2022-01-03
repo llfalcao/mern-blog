@@ -8,10 +8,21 @@ import PostModel, { Post } from '../models/Post';
 // Get all posts
 async function getPosts(req: Request, res: Response, next: NextFunction) {
   try {
-    const posts = await PostModel.find({}, { comments: 0 })
-      .populate('author', 'username')
-      .sort({ created_at: -1 })
-      .exec();
+    let posts;
+    // Get all posts, including unpublished ones
+    if (req.query.allPosts === '1') {
+      posts = await PostModel.find({}, { comments: 0 })
+        .populate('author', 'username')
+        .sort({ created_at: -1 })
+        .exec();
+    } else {
+      // Get only published posts
+      posts = await PostModel.find({ private: false }, { comments: 0 })
+        .populate('author', 'username')
+        .sort({ created_at: -1 })
+        .exec();
+    }
+
     res.json(posts);
   } catch (err) {
     return next(err);

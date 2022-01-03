@@ -13,7 +13,7 @@ function Posts() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`${API_URL}/posts`);
+        const response = await fetch(`${API_URL}/posts?allPosts=1`);
         const data = await response.json();
         setPosts(data);
         setLoading(false);
