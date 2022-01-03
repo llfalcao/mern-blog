@@ -54,8 +54,8 @@ function Header() {
         >
           About
         </NavItem>
-        <NavItem href="/">Posts</NavItem>
-        <NavItem href="!#">Projects</NavItem>
+        <NavItem href="/posts">Posts</NavItem>
+        <NavItem href="/new-post">New Post</NavItem>
       </Nav>
     </header>
   );

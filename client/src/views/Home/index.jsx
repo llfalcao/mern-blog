@@ -51,6 +51,7 @@ function Home() {
                   )}
                   {post.updated_at ? (
                     <span className="text-sm text-gray-400">
+                      {' '}
                       (updated{' '}
                       {DateTime.fromISO(post.updated_at).toLocaleString(
                         DateTime.DATETIME_MED,

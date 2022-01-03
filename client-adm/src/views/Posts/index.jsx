@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { API_URL } from '../../api';
+import token from '../../auth';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 function Posts() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
         const response = await fetch(`${API_URL}/posts`);
         const data = await response.json();
         setPosts(data);
@@ -21,24 +21,38 @@ function Posts() {
         console.error(err);
       }
     })();
-  }, []);
+  }, [loading]);
+
+  async function onDelete(postId) {
+    try {
+      const response = await fetch(`${API_URL}/posts/${postId}/delete`, {
+        method: 'POST',
+      });
+      if (response.status === 200) {
+        setLoading(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   async function togglePostVisibility(post) {
     try {
-      const updatedPost = { ...post, private: !post.private };
+      const updatedPost = {
+        ...post,
+        visibility: post.private ? 'public' : 'private',
+        private: !post.private,
+      };
       const response = await fetch(`${API_URL}/posts/${post._id}/edit`, {
         method: 'POST',
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        headers: { 'Content-Type': 'application/json', Authorization: token },
         body: JSON.stringify(updatedPost),
       });
 
       if (response.status === 200) {
-        return navigate('/');
+        setLoading(true);
+        return navigate('/posts');
       }
-
-      console.log(response);
-      console.log(await response.json());
     } catch (err) {
       console.error(err);
     }
@@ -52,7 +66,7 @@ function Posts() {
             key={post._id}
             className="p-4 mx-auto flex flex-col justify-between text-gray-800 rounded-md bg-zinc-800 shadow-md ease-out duration-150 w-full lg:w-8/12 lg:border lg:border-gray-700 hover:border-gray-500"
           >
-            <Link to={`${post}/edit`}>
+            <Link to={`/${post._id}/edit`}>
               <h2 className="text-lg font-medium text-sky-200 tracking-wide hover:underline">
                 {post.title}
               </h2>
@@ -65,6 +79,7 @@ function Posts() {
                 )}
                 {post.updated_at ? (
                   <span className="text-sm text-gray-400">
+                    {' '}
                     (updated{' '}
                     {DateTime.fromISO(post.updated_at).toLocaleString(
                       DateTime.DATETIME_MED,
@@ -76,6 +91,7 @@ function Posts() {
 
               <div className="flex items-center gap-2">
                 <button
+                  title="Publishing status"
                   type="button"
                   onClick={() => togglePostVisibility(post)}
                 >
@@ -108,12 +124,13 @@ function Posts() {
                 >
                   Edit
                 </Link>
-                <Link
-                  to={`/${post._id}/delete`}
+                <button
+                  type="button"
                   className="bg-red-700 text-gray-200 text-sm rounded px-4 py-2 duration-150 hover:bg-red-600 hover:text-gray-100"
+                  onClick={() => onDelete(post._id)}
                 >
                   Delete
-                </Link>
+                </button>
               </div>
             </div>
           </div>
