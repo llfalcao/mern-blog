@@ -12,7 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<Posts />} />
-        <Route path="/:post/edit" element={<PostEditor />} />
+        <Route path="/:post/edit" element={<PostEditor tab="editor" />} />
+        <Route path="/:post/comments" element={<PostEditor tab="comments" />} />
         <Route path="/new-post" element={<NewPost />} />
       </Routes>
     </>

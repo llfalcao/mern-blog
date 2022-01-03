@@ -62,13 +62,13 @@ function Comments({ post }) {
       <h2 className="mb-5 text-lg font-semibold">Comments</h2>
       <form method="POST" onSubmit={handleSubmit}>
         <input
-          className="w-full p-1 pl-2 rounded-md bg-zinc-700"
+          className="w-full p-1 pl-2 rounded-sm bg-zinc-700"
           placeholder="Name"
           name="author"
           onChange={handleInput}
         />
         <textarea
-          className="w-full h-20 p-1 pl-2 my-2 rounded-md bg-zinc-700"
+          className="w-full h-20 p-1 pl-2 my-2 rounded-sm bg-zinc-700"
           placeholder="Comment"
           name="text"
           onChange={handleInput}
