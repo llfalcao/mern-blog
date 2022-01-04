@@ -33,7 +33,7 @@ function Home() {
               className="p-4 flex flex-col justify-between gap-4 text-gray-800 rounded-xl bg-zinc-800 shadow-md ease-out duration-150 lg:shadow-none lg:bg-zinc-900 lg:p-7 lg:border lg:border-gray-700 hover:border-gray-500"
             >
               <div>
-                <Link to={`/posts/${post._id}`}>
+                <Link to={`/mern-blog/posts/${post._id}`}>
                   <h2 className="text-lg font-medium text-sky-200 tracking-wide hover:underline">
                     {post.title}
                   </h2>
@@ -61,7 +61,7 @@ function Home() {
                 </span>
 
                 <Link
-                  to={`/posts/${post._id}`}
+                  to={`/mern-blog/posts/${post._id}`}
                   className="bg-green-700 text-gray-200 text-sm rounded px-4 py-2 duration-150 hover:bg-green-600 hover:text-gray-100"
                 >
                   Read
