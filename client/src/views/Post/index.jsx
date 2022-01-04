@@ -18,7 +18,7 @@ function Post() {
         const data = await response.json();
         setPost(data);
       } catch (error) {
-        navigate('/not-found');
+        navigate('/mern-blog/not-found');
       }
     })();
   }, [navigate]);
