@@ -11,7 +11,6 @@ function Home() {
   useEffect(() => {
     (async function getPosts() {
       try {
-        // heroku soon(tm)
         setLoading(true);
         const url = `${API_URL}/posts`;
         const response = await fetch(url);
@@ -19,7 +18,7 @@ function Home() {
         setPosts(data);
         setLoading(false);
       } catch (error) {
-        setPosts(error);
+        console.error(error);
       }
     })();
   }, []);

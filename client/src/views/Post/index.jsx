@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Comments from '../../components/Comments';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import { API_URL } from '../../api';
 import { DateTime } from 'luxon';
 
 function Post() {
+  const navigate = useNavigate();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -16,10 +18,10 @@ function Post() {
         const data = await response.json();
         setPost(data);
       } catch (error) {
-        console.log(error);
+        navigate('/not-found');
       }
     })();
-  }, []);
+  }, [navigate]);
 
   return (
     <>
