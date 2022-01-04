@@ -12,8 +12,8 @@ function Post() {
   useEffect(() => {
     (async () => {
       try {
-        const { pathname } = window.location;
-        const url = `${API_URL}${pathname}`;
+        const path = window.location.pathname.split('/mern-blog')[1];
+        const url = `${API_URL}${path}`;
         const response = await fetch(url);
         const data = await response.json();
         setPost(data);
