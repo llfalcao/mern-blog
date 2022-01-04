@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import PostForm from '../../components/PostForm';
 import { API_URL } from '../../api';
 import token from '../../auth';
+import Comments from '../../components/Comments';
 
 function PostEditor({ tab }) {
   const navigate = useNavigate();
@@ -60,40 +61,41 @@ function PostEditor({ tab }) {
 
   return (
     <main className="w-full mx-auto p-5 lg:w-8/12">
-      <h1 className="mb-10 text-gray-200 text-2xl font-semibold">
-        Post Editor
-      </h1>
-
       <nav className="w-max mb-5 overflow-hidden mx-auto text-gray-200 font-semibold border border-zinc-600 rounded-md">
-        <button
-          type="button"
-          className="px-5 py-2 hover:bg-black hover:text-zinc-200 duration-150"
-        >
-          <Link to={`/${window.location.pathname.split('/')[1]}/edit`}>
+        <Link to={`/${window.location.pathname.split('/')[1]}/edit`}>
+          <button
+            type="button"
+            className="px-5 py-2 hover:bg-black hover:text-zinc-200 duration-150"
+          >
             Post Editor
-          </Link>
-        </button>
+          </button>
+        </Link>
         <span className="p-px h-full bg-zinc-600 rounded-sm"></span>
-        <button
-          type="button"
-          className="px-5 py-2 hover:bg-black hover:text-zinc-200 duration-150"
-        >
-          <Link to={`/${window.location.pathname.split('/')[1]}/comments`}>
+
+        <Link to={`/${window.location.pathname.split('/')[1]}/comments`}>
+          <button
+            type="button"
+            className="px-5 py-2 hover:bg-black hover:text-zinc-200 duration-150"
+          >
             Comments
-          </Link>
-        </button>
+          </button>
+        </Link>
       </nav>
 
-      {post && tab === 'editor' ? (
-        <>
-          <PostForm
-            post={post}
-            onChange={onChange}
-            onVisibilityChange={onVisibilityChange}
-            onSubmit={onSubmit}
-            errors={errors}
-          />
-        </>
+      {post ? (
+        tab === 'editor' ? (
+          <>
+            <PostForm
+              post={post}
+              onChange={onChange}
+              onVisibilityChange={onVisibilityChange}
+              onSubmit={onSubmit}
+              errors={errors}
+            />
+          </>
+        ) : (
+          <Comments post={post} />
+        )
       ) : (
         <h4 className="text-gray-200 w-full mt-20 text-center text-xl">
           Something went wrong.

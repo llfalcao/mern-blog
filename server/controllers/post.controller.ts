@@ -4,6 +4,7 @@ import { HydratedDocument } from 'mongoose';
 import passport from 'passport';
 import { postValidation } from '../utils/validator';
 import PostModel, { Post } from '../models/Post';
+import CommentModel from '../models/Comment';
 
 // Get all posts
 async function getPosts(req: Request, res: Response, next: NextFunction) {
@@ -99,14 +100,24 @@ const updatePost: any = [
 ];
 
 // Delete post
-async function deletePost(req: any, res: Response, next: NextFunction) {
-  try {
-    await PostModel.deleteOne({ _id: req.params.post }).exec();
-    res.sendStatus(200);
-  } catch (err) {
-    return next(err);
-  }
-}
+const deletePost: any = [
+  passport.authenticate('jwt', { session: false }),
+  async function (req: any, res: Response, next: NextFunction) {
+    try {
+      // Delete its comments first
+      const comments: any = await PostModel.findById(req.params.post, {
+        comments: 1,
+        _id: 0,
+      }).exec();
+      console.log(comments);
+      await CommentModel.deleteMany({ $id: { $in: comments } });
+      await PostModel.deleteOne({ _id: req.params.post }).exec();
+      res.sendStatus(200);
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
 
 const postController = {
   getPosts,

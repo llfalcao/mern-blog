@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
+import passport from 'passport';
+import { commentValidation } from '../utils/validator';
 import CommentModel from '../models/Comment';
 import PostModel from '../models/Post';
-import { commentValidation } from '../utils/validator';
 
 // Get a single comment from a post
 async function getComment(req: Request, res: Response, next: NextFunction) {
@@ -61,5 +62,23 @@ const createComment: any = [
   },
 ];
 
-const commentController = { getComment, getComments, createComment };
+// Delete a comment
+const deleteComment: any = [
+  passport.authenticate('jwt', { session: false }),
+  async function (req: Request, res: Response, next: NextFunction) {
+    try {
+      await CommentModel.deleteOne({ _id: req.params.comment }).exec();
+      res.sendStatus(200);
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
+
+const commentController = {
+  getComment,
+  getComments,
+  createComment,
+  deleteComment,
+};
 export default commentController;
