@@ -12,7 +12,7 @@ function Header() {
 
   return (
     <header className="p-6 mb-10 flex items-center justify-between flex-wrap header border-b border-gray-400 border-opacity-25">
-      <Link to="/" className="flex items-center flex-shrink-0 mr-6">
+      <Link to="/mern-blog" className="flex items-center flex-shrink-0 mr-6">
         <div>
           <img
             className="fill-current h-9 w-9 mr-2 rounded-full border border-gray-600"
@@ -54,8 +54,8 @@ function Header() {
         >
           About
         </NavItem>
-        <NavItem href="/">Posts</NavItem>
-        <NavItem href="!#">Projects</NavItem>
+        <NavItem href="/mern-blog">Posts</NavItem>
+        <NavItem href="/mern-blog/#">Projects</NavItem>
       </Nav>
     </header>
   );
