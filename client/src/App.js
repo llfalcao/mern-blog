@@ -10,8 +10,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/posts/:post" element={<Post />} />
+        <Route path="/mern-blog" element={<Home />} />
+        <Route path="/mern-blog/posts/:post" element={<Post />} />
       </Routes>
     </>
   );
