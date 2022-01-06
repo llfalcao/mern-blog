@@ -14,6 +14,13 @@ router.get('/api', (req, res) => {
   });
 });
 
+router.get('/api/v1', (req, res) => {
+  res.json({
+    message:
+      'Welcome to the blog API! Refer to https://github.com/llfalcao/mern-blog for the documentation.',
+  });
+});
+
 router.use('/login', login);
 router.use('/admin', admin);
 router.use('/api/v1/users', users);
