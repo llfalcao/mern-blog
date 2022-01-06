@@ -23,11 +23,11 @@ It will take around 10s for Heroku to wake up the app and then return the data f
 
 #### Comments
 
-| Method | Endpoint           | Description            |
-| ------ | ------------------ | ---------------------- |
-| GET    | /comments/:comment | Get a specific comment |
-| POST   | /comments          | Submit a new comment   |
-| DELETE | /:comment/delete   | Remove a comment       |
+| Method | Endpoint                  | Description            |
+| ------ | ------------------------- | ---------------------- |
+| GET    | /comments/:comment        | Get a specific comment |
+| POST   | /comments                 | Submit a new comment   |
+| DELETE | /comments/:comment/delete | Remove a comment       |
 
 The admin client allows the admin to edit posts, manage comments, and quickly mark a post as published or unpublished.
 
