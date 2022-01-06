@@ -43,4 +43,4 @@ The admin client allows the admin to edit posts, manage comments, and quickly ma
 
 ### Post Manager (Admin)
 
-![Home (Admin)](./docs/admin-home.png)
+![Home (Admin)](./docs/admin.png)
